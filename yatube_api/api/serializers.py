@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 from django.core.exceptions import ValidationError
 
 from .models import Comment, Group, Post, Follow, User
@@ -12,7 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'text', 'author', 'pub_date')
+        exclude = ['group']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -23,7 +24,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'author', 'post', 'text', 'created')
+        fields = '__all__'
         read_only_fields = ('post',)
 
 
@@ -38,6 +39,7 @@ class FollowSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
+        default=serializers.CurrentUserDefault()
     )
     following = serializers.SlugRelatedField(
         slug_field='username',
@@ -47,11 +49,14 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Follow
         fields = ('user', 'following',)
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Follow.objects.all(),
+                fields=['user', 'following'],
+                message='You have already subscribed to this user',
+            )]
 
     def validate(self, attrs):
         if self.context['request'].user == attrs['following']:
             raise ValidationError('You can`t subscribe to yourself')
-        if Follow.objects.filter(user=self.context['request'].user,
-                                 following=attrs['following']).exists():
-            raise ValidationError('You have already subscribed to this user')
         return super().validate(attrs)
