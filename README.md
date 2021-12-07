@@ -14,24 +14,23 @@
 Развернув проект у себя, Вы можете ознакомиться с документацией к API по ссылке [http://localhost:8000/redoc/](http://localhost:8000/redoc/).
 
 ## Развертывание проекта ##
-1. Склонировать репозиторий
+### 1. Склонировать репозиторий
 
-2. Создать виртуальное окружение и активировать его
-  
-> `python -m venv venv`
-
-> `source venv/Scripts/activate`
-
-3. Установить необходимые пакеты
-
-> `pip install -r requirements.txt` 
-  
-4. Выполнить миграции: из папки */yatube*, содержащей *файл manage.py*, выполнить команду
-
-> `python manage.py migrate`
-
-5. Запустить проект
-
-> `python manage.py runserver`
-
-Готово! 
+### 2. Создать виртуальное окружение и активировать его
+```
+python -m venv venv
+source venv/Scripts/activate
+```
+### 3. Установить необходимые пакеты
+```
+pip install -r requirements.txt
+```
+### 4. Выполнить миграции: из папки */yatube*, содержащей *файл manage.py*, выполнить команду
+```
+python manage.py migrate
+```
+### 5. Запустить проект
+```
+python manage.py runserver
+```
+### Готово! 
