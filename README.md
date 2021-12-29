@@ -26,7 +26,7 @@ git clone https://github.com/LasBazza/API_Yatube.git
 ```
 
 ### 2. Создать виртуальное окружение и активировать его
-Перейти в папку с проектом _API_Yatube/_, выполнить команды
+Перейти в папку с проектом _API_Yatube/_ выполнить команды
 ```
 python -m venv venv
 source venv/Scripts/activate (для Windows) | source venv/bin/activate (для Linux)
