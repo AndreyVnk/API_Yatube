@@ -14,7 +14,12 @@
 
 Развернув проект у себя, Вы можете ознакомиться с документацией к API по ссылке [http://localhost:8000/redoc/](http://localhost:8000/redoc/).
 
-## Развертывание проекта ##
+* Python 3
+* Django Rest Framework
+* [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/#simple-jwt)
+* SQLite
+
+## Запуск проекта ##
 ### 1. Склонировать репозиторий
 
 ### 2. Создать виртуальное окружение и активировать его
@@ -26,7 +31,8 @@ source venv/Scripts/activate
 ```
 pip install -r requirements.txt
 ```
-### 4. Выполнить миграции: из папки */yatube*, содержащей *файл manage.py*, выполнить команду
+### 4. Выполнить миграции
+Из папки */API_Yatube/yatube_api*, выполнить команду
 ```
 python manage.py migrate
 ```
