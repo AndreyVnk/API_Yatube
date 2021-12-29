@@ -13,6 +13,7 @@ tags:
   - name: COMMENTS
     description: Комментарии
   - name: AUTH
+    description: Авторизация
   - name: FOLLOW
     description: Подписки
   - name: GROUP
@@ -282,6 +283,24 @@ paths:
       responses:
         204:
           description: ''
+  /auth/:
+    post:
+      tags:
+        - AUTH
+      description: Зарегистрироваться
+      parameters: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: 'Новый пользователь'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /token/:
     post:
       tags:
@@ -425,6 +444,22 @@ paths:
 
 components:
   schemas:
+    User:
+      title: Пользователь
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        id:
+          type: integer
+          title: ID  пользователя
+          readOnly: true
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
     Post:
       title: Пост
       type: object

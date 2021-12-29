@@ -1,16 +1,23 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, permissions, mixins, filters
+from rest_framework import viewsets, permissions, filters
 
-from .models import Post, Group, Follow
+from .mixins import CreateListViewSet, CreateViewSet
+from .models import Post, Group, Follow, User
 from .permissions import IsAuthorOrReadOnlyPermission
-from .serializers import (CommentSerializer, PostSerializer,
-                          GroupSerializer, FollowSerializer)
+from .serializers import (
+    CommentSerializer,
+    PostSerializer,
+    CreateUserSerializer,
+    GroupSerializer,
+    FollowSerializer
+)
 
 
-class CreateListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
-                        mixins.CreateModelMixin):
-    pass
+class CreateUserViewSet(CreateViewSet):
+    queryset = User.objects.all()
+    serializer_class = CreateUserSerializer
+    permission_classes = [permissions.AllowAny, ]
 
 
 class PostViewSet(viewsets.ModelViewSet):

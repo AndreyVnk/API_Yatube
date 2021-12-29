@@ -1,8 +1,21 @@
-from rest_framework import serializers
-from rest_framework.validators import UniqueTogetherValidator
 from django.core.exceptions import ValidationError
 
+from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
+
 from .models import Comment, Group, Post, Follow, User
+
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(style={"input_type": "password"}, write_only=True)
+
+    class Meta:
+        fields = ('username', 'password', 'id')
+        model = User
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class PostSerializer(serializers.ModelSerializer):
